@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { testAction, getProducts } from '../actions/home_actions';
+import { useDispatch } from 'react-redux';
+import { getProducts } from '../actions/products_actions';
+import CategoriesList from './CategoriesList.react';
 
 function App() {
   const dispatch = useDispatch();
-  const store = useSelector(store => store);
   useEffect(() => dispatch(getProducts()), [dispatch]);
-  console.log(store);
   return (
-    <div>
-      HELLO WORLD
-      <button onClick={() => dispatch(testAction())}>Click me to test</button>
-    </div>
+    <>
+      <CategoriesList />
+    </>
   );
 }
 

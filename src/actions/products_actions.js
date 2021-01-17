@@ -1,4 +1,7 @@
-export const testAction = () => ({ type: 'TEST_ACTION' });
+const populateProducts = products => ({
+  type: `POPULATE_PRODUCTS`,
+  payload: products,
+});
 
 export const getProducts = () => dispatch => {
   fetch('https://fakestoreapi.com/products')
@@ -7,8 +10,3 @@ export const getProducts = () => dispatch => {
       dispatch(populateProducts(json));
     });
 };
-
-const populateProducts = products => ({
-  type: `POPULATE_PRODUCTS`,
-  payload: products,
-});
