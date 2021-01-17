@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getProducts } from '../actions/products_actions';
+import { getProducts } from '../actions/productsActions';
 import CategoriesList from './CategoriesList.react';
 import { makeStyles } from '@material-ui/core';
 
