@@ -9,7 +9,6 @@ import {
   CardContent,
   Typography,
 } from '@material-ui/core';
-import { toTitleCase } from '../utils';
 
 const useStyles = makeStyles({
   container: {
@@ -23,6 +22,9 @@ const useStyles = makeStyles({
   },
   categoryImage: {
     height: 200,
+  },
+  titleCase: {
+    textTransform: 'capitalize',
   },
 });
 
@@ -44,8 +46,12 @@ export default function CategoriesList() {
                   image={productsByCategory[category][0].image}
                 />
                 <CardContent>
-                  <Typography variant='h6' color='primary'>
-                    {toTitleCase(category)}
+                  <Typography
+                    variant='h6'
+                    color='primary'
+                    className={styles.titleCase}
+                  >
+                    {category}
                   </Typography>
                 </CardContent>
               </CardActionArea>
