@@ -1,5 +1,7 @@
-const populateProducts = products => ({
-  type: `POPULATE_PRODUCTS`,
+export const POPULATE_PRODUCTS = 'POPULATE_PRODUCTS';
+
+export const populateProducts = products => ({
+  type: POPULATE_PRODUCTS,
   payload: products,
 });
 
