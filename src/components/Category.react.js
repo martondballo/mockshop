@@ -10,20 +10,30 @@ import {
 } from '@material-ui/core';
 
 const useStyles = makeStyles({
+  categoryTitle: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: 16,
+  },
   container: {
     maxWidth: 540,
     margin: '0 auto',
     padding: '20px',
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'flex-start',
   },
-  card: {
-    margin: '0 0 8px 8px',
-    width: 200,
+  titleCase: {
+    textTransform: 'capitalize',
+  },
+  cardContainer: {
+    padding: 4,
+    width: 270,
+    boxSizing: 'border-box',
   },
   productImage: {
     height: 300,
+    padding: 5,
+    backgroundSize: 'contain',
   },
   productName: {
     textOverflow: 'ellipsis',
@@ -40,23 +50,35 @@ export default function Category({ selectedCategory }) {
   );
 
   return (
-    <div className={styles.container}>
-      {products.map((product, index) => (
-        <Card key={index} className={styles.card}>
-          <CardActionArea>
-            <CardMedia className={styles.productImage} image={product.image} />
-            <CardContent>
-              <Typography
-                variant='h6'
-                color='primary'
-                className={styles.productName}
-              >
-                {product.title}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      ))}
-    </div>
+    <>
+      <div className={styles.categoryTitle}>
+        <Typography variant='h3' className={styles.titleCase}>
+          {selectedCategory}
+        </Typography>
+      </div>
+      <div className={styles.container}>
+        {products.map((product, index) => (
+          <div className={styles.cardContainer}>
+            <Card key={index}>
+              <CardActionArea>
+                <CardMedia
+                  className={styles.productImage}
+                  image={product.image}
+                />
+                <CardContent>
+                  <Typography
+                    variant='h6'
+                    color='primary'
+                    className={styles.productName}
+                  >
+                    {product.title}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }

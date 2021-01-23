@@ -17,12 +17,15 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
   },
-  card: {
-    marginLeft: 8,
-    width: 200,
+  cardContainer: {
+    padding: 4,
+    width: 270,
+    boxSizing: 'border-box',
   },
   categoryImage: {
-    height: 200,
+    height: 300,
+    padding: 5,
+    backgroundSize: 'contain',
   },
   titleCase: {
     textTransform: 'capitalize',
@@ -46,23 +49,25 @@ export default function CategoriesList() {
       {productsByCategory != null ? (
         Object.keys(productsByCategory).map((category, index) => {
           return (
-            <Card key={index} className={styles.card}>
-              <CardActionArea onClick={() => categoryClickHandler(category)}>
-                <CardMedia
-                  className={styles.categoryImage}
-                  image={productsByCategory[category][0].image}
-                />
-                <CardContent>
-                  <Typography
-                    variant='h6'
-                    color='primary'
-                    className={styles.titleCase}
-                  >
-                    {category}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
+            <div className={styles.cardContainer}>
+              <Card key={index}>
+                <CardActionArea onClick={() => categoryClickHandler(category)}>
+                  <CardMedia
+                    className={styles.categoryImage}
+                    image={productsByCategory[category][0].image}
+                  />
+                  <CardContent>
+                    <Typography
+                      variant='h6'
+                      color='primary'
+                      className={styles.titleCase}
+                    >
+                      {category}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </div>
           );
         })
       ) : (
