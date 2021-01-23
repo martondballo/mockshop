@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useState } from "react";
 import ProductCategories from './CategoriesList.react';
 
+
 function App() {
   return <ProductCategories />;
 }
