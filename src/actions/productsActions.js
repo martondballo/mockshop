@@ -17,13 +17,14 @@ export const fetchProductsFailure = error => ({
 });
 
 export function fetchProducts() {
+  console.log('fetchProducts');
     return dispatch => {
       dispatch(fetchProductsBegin());
       return fetch("https://fakestoreapi.com/products")
         .then(handleErrors)
         .then(res => res.json())
         .then(json => {
-            // console.log('j', json);
+            console.log('j', json);
         
             let result = json.reduce(function (r, a) {
               r[a.category] = r[a.category] || [];

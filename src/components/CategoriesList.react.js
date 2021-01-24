@@ -4,6 +4,7 @@ import { fetchProducts } from "../actions/productsActions";
 
 class CategoriesList extends React.Component {
   componentDidMount() {
+    console.log('before fetch product');
     this.props.dispatch(fetchProducts());
   }
 
@@ -24,9 +25,10 @@ class CategoriesList extends React.Component {
 
   render() {
     const { error, loading, products } = this.props;
+    console.log('products', products);
     const categories = Object.keys(products);
-    console.log(categories[0]);
-    console.log(products[categories[0]][0].image)
+    console.log(categories);
+  
     if (error) {
       return <div>Error! {error.message}</div>;
     }
