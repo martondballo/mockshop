@@ -8,7 +8,7 @@ class CategoriesList extends React.Component {
   }
 
   componentDidUpdate() {
-      console.log('this.props', this.props);
+      // console.log('this.props', this.props);
     
   }
 
@@ -24,7 +24,9 @@ class CategoriesList extends React.Component {
 
   render() {
     const { error, loading, products } = this.props;
-
+    const categories = Object.keys(products);
+    console.log(categories[0]);
+    console.log(products[categories[0]][0].image)
     if (error) {
       return <div>Error! {error.message}</div>;
     }
@@ -35,15 +37,15 @@ class CategoriesList extends React.Component {
 
     return (
       <ul>
-        { products.map(product =>
+        { categories.map(category =>
           <li 
-          key={product.id}>
+          key={category}>
               <img
             width={'100px'}
             height={'100px'}
-            src={product.image}
+            src={products[category][0].image}
           />
-              {this.toTitleCase(product.category)}</li>
+              {this.toTitleCase(category)}</li>
         )}
       </ul>
     );

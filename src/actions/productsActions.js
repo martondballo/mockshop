@@ -23,8 +23,17 @@ export function fetchProducts() {
         .then(handleErrors)
         .then(res => res.json())
         .then(json => {
-            console.log('j', json);
-          dispatch(fetchProductsSuccess(json));
+            // console.log('j', json);
+        
+            let result = json.reduce(function (r, a) {
+              r[a.category] = r[a.category] || [];
+              r[a.category].push(a);
+              return r;
+          }, Object.create(null));
+          console.log('result', result);
+          dispatch(fetchProductsSuccess(result));
+
+
           return json.body;
         })
         .catch(error => dispatch(fetchProductsFailure(error)));
