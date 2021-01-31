@@ -17,7 +17,6 @@ export const fetchProductsFailure = error => ({
 });
 
 export function fetchProducts() {
-  console.log('fetchProducts');
     return dispatch => {
       dispatch(fetchProductsBegin());
       return fetch("https://fakestoreapi.com/products")
@@ -40,8 +39,7 @@ export function fetchProducts() {
         .catch(error => dispatch(fetchProductsFailure(error)));
     };
   }
-  
-  // Handle HTTP errors since fetch won't.
+
   function handleErrors(response) {
     if (!response.ok) {
       throw Error(response.statusText);

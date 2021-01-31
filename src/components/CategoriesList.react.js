@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import { withStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
+import CategoryDetails from './CategoryDetails'
 
 
 const styles = function(theme) {
@@ -20,6 +21,7 @@ const styles = function(theme) {
     media: {
       width: 150,
       height: 150,
+      objectFit: 'contain'
     },
     container: {
       display: 'flex',
@@ -30,13 +32,14 @@ const styles = function(theme) {
 
 
 class CategoriesList extends React.Component {
+  state = {category: ''}
   componentDidMount() {
     console.log('before fetch product');
     this.props.dispatch(fetchProducts());
   }
 
   componentDidUpdate() {
-    // console.log('this.props', this.props);
+   
 
   }
 
@@ -52,6 +55,7 @@ class CategoriesList extends React.Component {
 
   render() {
     const { error, loading, products, classes } = this.props;
+    const { category} = this.state;
     console.log('products', products);
     const categories = Object.keys(products);
     console.log(categories);
@@ -63,7 +67,10 @@ class CategoriesList extends React.Component {
     if (loading) {
       return <div>Loading...</div>;
     }
-
+    console.log(categories)
+    console.log('state', this.state)
+    console.log('actualproducts', products[category])
+    console.log('ablabla', products[''])
     return (
       <Fragment>
         <div className={classes.container}>
@@ -71,7 +78,8 @@ class CategoriesList extends React.Component {
             const image = products[category][0].image;
 
             return (
-              <Card className={classes.root}>
+              <Fragment>
+              <Card className={classes.root} onClick={()=> {this.setState({category: category})}}>
                 <CardActionArea>
                   <CardMedia
                     className={classes.media}
@@ -84,11 +92,12 @@ class CategoriesList extends React.Component {
                   </Typography>
                   </CardContent>
                 </CardActionArea>
-
               </Card>
+              </Fragment>
             )
           })}
         </div>
+        <CategoryDetails selectedProducts={products[category]} />
       </Fragment>
     );
   }
@@ -102,74 +111,3 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(withStyles(styles)(CategoriesList))
 
-
-
-
-// ---------->
-
-
-
-// import React from 'react';
-// import { useEffect } from 'react';
-// import { useState } from "react";
-
-// export default function ProductCategories() {
-//     const [hasError, setErrors] = useState(false);
-//     const [products, setProducts] = useState([]);
-
-//   useEffect(() => {
-//     async function fetchData() {
-//       const res = await fetch("https://fakestoreapi.com/products");
-//       res
-//         .json()
-//         .then(res => setProducts(res))
-//         .catch(err => setErrors(err));
-//     }
-//     fetchData();
-//   },[]);
-
-
-//     return (
-//     <>
-//     <div>
-//       <span>{JSON.stringify(products[0])}</span>
-
-
-//       <ul>{products && products.map((product, index)=> {return (
-//       <li 
-//       key={index}>
-//           <img
-//             width={'100px'}
-//             height={'100px'}
-//             src={product.image}
-//           />
-//       </li>) })}</ul>
-
-//       <hr />
-//       <span>Has error: {JSON.stringify(hasError)}</span>
-//     </div>
-
-
-//     </>
-
-
-//     )
-// }
-
-
-
-//   useEffect((products) => {
-//     const categorySelection = (products) => {
-
-//         const newObject = {} 
-
-//         for(let i=0; i < products.length; i++) {
-//             newObject[products[i].category] ? newObject[products[i].category].push(products[i]) : newObject[products[i].category] = [ products[i] ];
-
-//         }
-//         console.log('newObject',newObject);
-//         return  newObject // = { men: [i1, i2], women: [i3,i4] }
-
-//     },  
-//     [products]
-//   })
