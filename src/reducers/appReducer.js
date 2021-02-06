@@ -8,8 +8,8 @@ export const PAGES = {
 
 const initialState = {
   activePage: PAGES.HOME,
-  selectedCategory: null,
-  selectedProduct: null,
+  selectedCategoryName: null,
+  selectedProductID: null,
 };
 
 export default function appReducer(state = initialState, action) {
@@ -18,13 +18,13 @@ export default function appReducer(state = initialState, action) {
       return {
         ...state,
         activePage: PAGES.CATEGORY,
-        selectedCategory: action.categoryName,
+        selectedCategoryName: action.categoryName,
       };
     case SET_PRODUCT:
       return {
         ...state,
         activePage: PAGES.PRODUCT,
-        selectedProduct: action.productID,
+        selectedProductID: action.productID,
       };
     default:
       return state;

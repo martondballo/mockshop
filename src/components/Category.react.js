@@ -1,5 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setProduct } from '../actions/appActions';
 import {
   makeStyles,
   Card,
@@ -42,25 +43,31 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Category({ selectedCategory }) {
+export default function Category() {
+  const dispatch = useDispatch();
   const styles = useStyles();
 
+  const { selectedCategoryName } = useSelector(state => state.app);
   const products = useSelector(
-    state => state.products.productsByCategory[selectedCategory]
+    state => state.products.productsByCategory[selectedCategoryName]
   );
+
+  const productClickHandler = productID => {
+    dispatch(setProduct(productID));
+  };
 
   return (
     <>
       <div className={styles.categoryTitle}>
         <Typography variant='h3' className={styles.titleCase}>
-          {selectedCategory}
+          {selectedCategoryName}
         </Typography>
       </div>
       <div className={styles.container}>
-        {products.map((product, index) => (
+        {products.map(product => (
           <div className={styles.cardContainer}>
-            <Card key={index}>
-              <CardActionArea>
+            <Card key={product.id}>
+              <CardActionArea onClick={() => productClickHandler(product.id)}>
                 <CardMedia
                   className={styles.productImage}
                   image={product.image}
