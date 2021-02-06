@@ -40,14 +40,16 @@ export default function CategoriesList() {
     state => state.products?.productsByCategory
   );
 
+  const categoryNames = Object.keys(productsByCategory);
+
   const categoryClickHandler = category => {
     dispatch(setCategory(category));
   };
 
   return (
     <div className={styles.container}>
-      {productsByCategory != null ? (
-        Object.keys(productsByCategory).map((category, index) => {
+      {categoryNames.length > 0 ? (
+        categoryNames.map((category, index) => {
           return (
             <div className={styles.cardContainer}>
               <Card key={index}>

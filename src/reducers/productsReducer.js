@@ -1,6 +1,11 @@
 import { POPULATE_PRODUCTS } from '../actions/productsActions';
 
-export default function productsReducer(state = {}, action) {
+const initialState = {
+  products: [],
+  productsByCategory: {},
+};
+
+export default function productsReducer(state = initialState, action) {
   switch (action.type) {
     case POPULATE_PRODUCTS:
       // turns {products: [[product]]} into {[category]: [[product]]}

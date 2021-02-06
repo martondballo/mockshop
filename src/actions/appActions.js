@@ -1,6 +1,12 @@
 export const SET_CATEGORY = 'SET_CATEGORY';
+export const SET_PRODUCT = 'SET_PRODUCT';
 
-export const setCategory = category => ({
+export const setCategory = categoryName => ({
   type: SET_CATEGORY,
-  category,
+  categoryName,
+});
+
+export const setProduct = productID => ({
+  type: SET_PRODUCT,
+  productID,
 });
