@@ -17,11 +17,7 @@ function App() {
   const dispatch = useDispatch();
   const styles = useStyles();
 
-<<<<<<< HEAD
   const { activePage } = useSelector(state => state.app);
-=======
-  const { selectedCategory, activePage } = useSelector(state => state.app);
->>>>>>> App shows page based on activePage
 
   useEffect(() => dispatch(getProducts()), [dispatch]);
 
@@ -30,13 +26,9 @@ function App() {
       case PAGES.HOME:
         return <CategoriesList />;
       case PAGES.CATEGORY:
-<<<<<<< HEAD
         return <Category />;
       case PAGES.PRODUCT:
         return <Product />;
-=======
-        return <Category selectedCategory={selectedCategory} />;
->>>>>>> App shows page based on activePage
       default:
         return <CategoriesList />;
     }
