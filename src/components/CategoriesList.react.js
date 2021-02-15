@@ -1,14 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import {
-  makeStyles,
-  CircularProgress,
-  Card,
-  CardActionArea,
-  CardMedia,
-  CardContent,
-  Typography,
-} from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategory } from '../actions/appActions';
+import CardItem from './CardItem.react';
+import { makeStyles, CircularProgress } from '@material-ui/core';
 
 const useStyles = makeStyles({
   container: {
@@ -16,46 +10,31 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
   },
-  card: {
-    marginLeft: 8,
-    width: 200,
-  },
-  categoryImage: {
-    height: 200,
-  },
-  titleCase: {
-    textTransform: 'capitalize',
-  },
 });
 
 export default function CategoriesList() {
+  const dispatch = useDispatch();
+  const styles = useStyles();
+
   const productsByCategory = useSelector(
     state => state.products?.productsByCategory
   );
-  const styles = useStyles();
+
+  const categoryClickHandler = category => {
+    dispatch(setCategory(category));
+  };
 
   return (
     <div className={styles.container}>
       {productsByCategory != null ? (
         Object.keys(productsByCategory).map((category, index) => {
           return (
-            <Card key={index} className={styles.card}>
-              <CardActionArea>
-                <CardMedia
-                  className={styles.categoryImage}
-                  image={productsByCategory[category][0].image}
-                />
-                <CardContent>
-                  <Typography
-                    variant='h6'
-                    color='primary'
-                    className={styles.titleCase}
-                  >
-                    {category}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
+            <CardItem
+              key={index}
+              label={category}
+              imageURL={productsByCategory[category][0].image}
+              clickHandler={() => categoryClickHandler(category)}
+            />
           );
         })
       ) : (

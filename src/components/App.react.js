@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../actions/productsActions';
 import CategoriesList from './CategoriesList.react';
+import Category from './Category.react';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
@@ -14,10 +15,17 @@ function App() {
   const dispatch = useDispatch();
   const styles = useStyles();
 
+  const { selectedCategory } = useSelector(state => state.app);
+
   useEffect(() => dispatch(getProducts()), [dispatch]);
+
   return (
     <div className={styles.app}>
-      <CategoriesList />
+      {selectedCategory != null ? (
+        <Category selectedCategory={selectedCategory} />
+      ) : (
+        <CategoriesList />
+      )}
     </div>
   );
 }
