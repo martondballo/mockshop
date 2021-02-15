@@ -1,4 +1,8 @@
-import { SET_CATEGORY, SET_PRODUCT } from '../actions/appActions';
+import {
+  SET_CATEGORY,
+  SET_PRODUCT,
+  NAVIGATE_TO_HOME_PAGE,
+} from '../actions/appActions';
 
 export const PAGES = {
   HOME: 'HOME',
@@ -26,6 +30,14 @@ export default function appReducer(state = initialState, action) {
         activePage: PAGES.PRODUCT,
         selectedProductID: action.productID,
       };
+    case NAVIGATE_TO_HOME_PAGE:
+      return {
+        ...state,
+        activePage: PAGES.HOME,
+        selectedCategoryName: null,
+        selectedProductID: null,
+      };
+
     default:
       return state;
   }

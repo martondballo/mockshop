@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../actions/productsActions';
 import { PAGES } from '../reducers/appReducer';
+import NavBar from './NavBar.react';
 import CategoriesList from './CategoriesList.react';
 import Product from './Product.react';
 import Category from './Category.react';
@@ -34,7 +35,12 @@ function App() {
     }
   };
 
-  return <div className={styles.app}>{renderPage()}</div>;
+  return (
+    <div className={styles.app}>
+      <NavBar />
+      {renderPage()}
+    </div>
+  );
 }
 
 export default App;
