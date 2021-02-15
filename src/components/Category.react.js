@@ -65,8 +65,8 @@ export default function Category() {
       </div>
       <div className={styles.container}>
         {products.map(product => (
-          <div className={styles.cardContainer}>
-            <Card key={product.id}>
+          <div className={styles.cardContainer} key={product.id}>
+            <Card>
               <CardActionArea onClick={() => productClickHandler(product.id)}>
                 <CardMedia
                   className={styles.productImage}

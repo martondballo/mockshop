@@ -51,8 +51,8 @@ export default function CategoriesList() {
       {categoryNames.length > 0 ? (
         categoryNames.map((category, index) => {
           return (
-            <div className={styles.cardContainer}>
-              <Card key={index}>
+            <div className={styles.cardContainer} key={index}>
+              <Card>
                 <CardActionArea onClick={() => categoryClickHandler(category)}>
                   <CardMedia
                     className={styles.categoryImage}

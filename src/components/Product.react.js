@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   makeStyles,
@@ -10,6 +10,8 @@ import {
   Select,
   MenuItem,
 } from '@material-ui/core';
+
+const SIZES = ['S', 'M', 'L', 'XL'];
 
 const useStyles = makeStyles({
   centeredFlex: {
@@ -45,6 +47,7 @@ const useStyles = makeStyles({
 
 export default function Product() {
   const styles = useStyles();
+  const [selectedSize, setSelectedSize] = useState('M');
 
   const { selectedProductID, selectedCategoryName } = useSelector(
     state => state.app
@@ -58,6 +61,8 @@ export default function Product() {
     selectedCategoryName === 'women clothing';
 
   const { title, description, price, image } = product;
+
+  const sizeChangeHandler = event => setSelectedSize(event.target.value);
 
   return (
     <div className={styles.centeredFlex}>
@@ -80,11 +85,17 @@ export default function Product() {
             {isClothingCategory && (
               <FormControl className={styles.form}>
                 <InputLabel id='size-label'>Size</InputLabel>
-                <Select labelId='Size' id='size-select' value='M'>
-                  <MenuItem value={'S'}>S</MenuItem>
-                  <MenuItem value={'M'}>M</MenuItem>
-                  <MenuItem value={'L'}>L</MenuItem>
-                  <MenuItem value={'XL'}>XL</MenuItem>
+                <Select
+                  labelId='Size'
+                  id='size-select'
+                  value={selectedSize}
+                  onChange={event => sizeChangeHandler(event)}
+                >
+                  {SIZES.map(size => (
+                    <MenuItem key={size} value={size}>
+                      {size}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             )}
