@@ -8,7 +8,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
-import { navigateToHomePage } from './../actions/appActions';
+import { navigateToHomePage, toggleSearchMode } from './../actions/appActions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -71,6 +71,8 @@ export default function NavBar() {
 
   const handleHomeClick = () => dispatch(navigateToHomePage());
 
+  const handleToggleSearchMode = () => dispatch(toggleSearchMode());
+
   return (
     <div className={classes.root}>
       <AppBar position='static'>
@@ -98,6 +100,8 @@ export default function NavBar() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              onFocus={() => handleToggleSearchMode()}
+              onBlur={() => handleToggleSearchMode()}
             />
           </div>
         </Toolbar>

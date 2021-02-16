@@ -12,13 +12,21 @@ const useStyles = makeStyles({
   app: {
     fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
   },
+  opaqueOverlay: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
+    backgroundColor: '#fff',
+    opacity: '0.8',
+    zIndex: 10,
+  },
 });
 
 function App() {
   const dispatch = useDispatch();
   const styles = useStyles();
 
-  const { activePage } = useSelector(state => state.app);
+  const { activePage, isSearchModeActive } = useSelector(state => state.app);
 
   useEffect(() => dispatch(getProducts()), [dispatch]);
 
@@ -38,7 +46,10 @@ function App() {
   return (
     <div className={styles.app}>
       <NavBar />
-      {renderPage()}
+      <div className={styles.content}>
+        {isSearchModeActive && <div className={styles.opaqueOverlay}></div>}
+        {renderPage()}
+      </div>
     </div>
   );
 }
