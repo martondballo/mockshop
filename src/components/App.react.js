@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../actions/productsActions';
 import { PAGES } from '../reducers/appReducer';
 import NavBar from './NavBar.react';
+import Fade from '@material-ui/core/Fade';
 import CategoriesList from './CategoriesList.react';
 import Product from './Product.react';
 import Category from './Category.react';
@@ -47,7 +48,11 @@ function App() {
     <div className={styles.app}>
       <NavBar />
       <div className={styles.content}>
-        {isSearchModeActive && <div className={styles.opaqueOverlay}></div>}
+        {isSearchModeActive && (
+          <Fade in={isSearchModeActive}>
+            <div className={styles.opaqueOverlay}></div>
+          </Fade>
+        )}
         {renderPage()}
       </div>
     </div>
