@@ -44,7 +44,6 @@ export default function appReducer(state = initialState, action) {
         ...state,
         searchTerm: action.searchTerm,
       };
-
     default:
       return state;
   }
