@@ -3,6 +3,7 @@ import {
   SET_PRODUCT,
   NAVIGATE_TO_HOME_PAGE,
   TOGGLE_SEARCH_MODE,
+  UPDATE_SEARCH_TERM,
 } from '../actions/appActions';
 
 export const PAGES = {
@@ -16,6 +17,7 @@ const initialState = {
   selectedCategoryName: null,
   selectedProductID: null,
   isSearchModeActive: false,
+  searchTerm: '',
 };
 
 export default function appReducer(state = initialState, action) {
@@ -43,6 +45,11 @@ export default function appReducer(state = initialState, action) {
       return {
         ...state,
         isSearchModeActive: !state.isSearchModeActive,
+      };
+    case UPDATE_SEARCH_TERM:
+      return {
+        ...state,
+        searchTerm: action.searchTerm,
       };
 
     default:
