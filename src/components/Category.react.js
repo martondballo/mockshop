@@ -48,7 +48,7 @@ export default function Category() {
             key={product.id}
             label={product.title}
             imageURL={product.image}
-            clickHandler={() => productClickHandler()}
+            clickHandler={() => productClickHandler(product.id)}
           />
         ))}
       </div>
