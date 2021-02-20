@@ -5,6 +5,7 @@ import { PAGES } from '../reducers/appReducer';
 import NavBar from './NavBar.react';
 import Fade from '@material-ui/core/Fade';
 import CategoriesList from './CategoriesList.react';
+import SearchResults from './SearchResults.react';
 import Product from './Product.react';
 import Category from './Category.react';
 import { makeStyles } from '@material-ui/core';
@@ -12,14 +13,6 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
   app: {
     fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
-  },
-  opaqueOverlay: {
-    position: 'absolute',
-    height: '100%',
-    width: '100%',
-    backgroundColor: '#fff',
-    opacity: '0.8',
-    zIndex: 10,
   },
 });
 
@@ -50,7 +43,7 @@ function App() {
       <div className={styles.content}>
         {isSearchModeActive && (
           <Fade in={isSearchModeActive}>
-            <div className={styles.opaqueOverlay}></div>
+            <SearchResults />
           </Fade>
         )}
         {renderPage()}
