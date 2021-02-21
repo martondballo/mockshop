@@ -2,7 +2,6 @@ import {
   SET_CATEGORY,
   SET_PRODUCT,
   NAVIGATE_TO_HOME_PAGE,
-  TOGGLE_SEARCH_MODE,
   UPDATE_SEARCH_TERM,
 } from '../actions/appActions';
 
@@ -16,7 +15,6 @@ const initialState = {
   activePage: PAGES.HOME,
   selectedCategoryName: null,
   selectedProductID: null,
-  isSearchModeActive: false,
   searchTerm: '',
 };
 
@@ -40,11 +38,6 @@ export default function appReducer(state = initialState, action) {
         activePage: PAGES.HOME,
         selectedCategoryName: null,
         selectedProductID: null,
-      };
-    case TOGGLE_SEARCH_MODE:
-      return {
-        ...state,
-        isSearchModeActive: !state.isSearchModeActive,
       };
     case UPDATE_SEARCH_TERM:
       return {

@@ -8,11 +8,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
-import {
-  navigateToHomePage,
-  toggleSearchMode,
-  changeSearchTerm,
-} from './../actions/appActions';
+import { navigateToHomePage, changeSearchTerm } from './../actions/appActions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -76,10 +72,6 @@ export default function NavBar() {
   const { searchTerm } = useSelector(state => state.app);
 
   const handleHomeClick = () => dispatch(navigateToHomePage());
-  const handleToggleSearchMode = () => {
-    dispatch(toggleSearchMode());
-    dispatch(changeSearchTerm(''));
-  };
   const handleChangeSearchTerm = newSearchTerm => {
     dispatch(changeSearchTerm(newSearchTerm));
   };
@@ -113,8 +105,6 @@ export default function NavBar() {
               value={searchTerm}
               onChange={event => handleChangeSearchTerm(event.target.value)}
               inputProps={{ 'aria-label': 'search' }}
-              onFocus={() => handleToggleSearchMode()}
-              onBlur={() => handleToggleSearchMode()}
             />
           </div>
         </Toolbar>

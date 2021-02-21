@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../actions/productsActions';
 import { PAGES } from '../reducers/appReducer';
 import NavBar from './NavBar.react';
-import Fade from '@material-ui/core/Fade';
 import CategoriesList from './CategoriesList.react';
 import SearchResults from './SearchResults.react';
 import Product from './Product.react';
@@ -14,13 +13,17 @@ const useStyles = makeStyles({
   app: {
     fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
   },
+  content: {
+    position: 'relative',
+  },
 });
 
 function App() {
   const dispatch = useDispatch();
   const styles = useStyles();
 
-  const { activePage, isSearchModeActive } = useSelector(state => state.app);
+  const { activePage, searchTerm } = useSelector(state => state.app);
+  const isSearchModeActive = searchTerm.length > 0;
 
   useEffect(() => dispatch(getProducts()), [dispatch]);
 
@@ -41,11 +44,7 @@ function App() {
     <div className={styles.app}>
       <NavBar />
       <div className={styles.content}>
-        {isSearchModeActive && (
-          <Fade in={isSearchModeActive}>
-            <SearchResults />
-          </Fade>
-        )}
+        {isSearchModeActive && <SearchResults />}
         {renderPage()}
       </div>
     </div>
