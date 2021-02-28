@@ -35,13 +35,15 @@ function SearchResults() {
   const { searchTerm } = useSelector(state => state.app);
   const { products } = useSelector(state => state.products);
 
+  const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
   const searchMatches =
-    searchTerm.length >= 3
+    lowerCaseSearchTerm.length >= 3
       ? products.filter(
           product =>
-            product.title.includes(searchTerm) ||
-            product.category.includes(searchTerm) ||
-            product.description.includes(searchTerm)
+            product.title.toLowerCase().includes(lowerCaseSearchTerm) ||
+            product.category.toLowerCase().includes(lowerCaseSearchTerm) ||
+            product.description.toLowerCase().includes(lowerCaseSearchTerm)
         )
       : [];
 
