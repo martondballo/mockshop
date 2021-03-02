@@ -1,34 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategory } from '../actions/appActions';
-import {
-  makeStyles,
-  CircularProgress,
-  Card,
-  CardActionArea,
-  CardMedia,
-  CardContent,
-  Typography,
-} from '@material-ui/core';
+import CardItem from './CardItem.react';
+import { makeStyles, CircularProgress } from '@material-ui/core';
 
 const useStyles = makeStyles({
   container: {
     padding: '20px',
     display: 'flex',
     justifyContent: 'center',
-  },
-  cardContainer: {
-    padding: 4,
-    width: 270,
-    boxSizing: 'border-box',
-  },
-  categoryImage: {
-    height: 300,
-    padding: 5,
-    backgroundSize: 'contain',
-  },
-  titleCase: {
-    textTransform: 'capitalize',
   },
 });
 
@@ -51,25 +31,12 @@ export default function CategoriesList() {
       {categoryNames.length > 0 ? (
         categoryNames.map((category, index) => {
           return (
-            <div className={styles.cardContainer} key={index}>
-              <Card>
-                <CardActionArea onClick={() => categoryClickHandler(category)}>
-                  <CardMedia
-                    className={styles.categoryImage}
-                    image={productsByCategory[category][0].image}
-                  />
-                  <CardContent>
-                    <Typography
-                      variant='h6'
-                      color='primary'
-                      className={styles.titleCase}
-                    >
-                      {category}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </div>
+            <CardItem
+              key={index}
+              label={category}
+              imageURL={productsByCategory[category][0].image}
+              clickHandler={() => categoryClickHandler(category)}
+            />
           );
         })
       ) : (

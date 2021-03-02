@@ -1,14 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProduct } from '../actions/appActions';
-import {
-  makeStyles,
-  Card,
-  CardActionArea,
-  CardMedia,
-  CardContent,
-  Typography,
-} from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import CardItem from './CardItem.react';
+import { makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   categoryTitle: {
@@ -25,21 +20,6 @@ const useStyles = makeStyles({
   },
   titleCase: {
     textTransform: 'capitalize',
-  },
-  cardContainer: {
-    padding: 4,
-    width: 270,
-    boxSizing: 'border-box',
-  },
-  productImage: {
-    height: 300,
-    padding: 5,
-    backgroundSize: 'contain',
-  },
-  productName: {
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
   },
 });
 
@@ -64,26 +44,13 @@ export default function Category() {
         </Typography>
       </div>
       <div className={styles.container}>
-        {products.map(product => (
-          <div className={styles.cardContainer} key={product.id}>
-            <Card>
-              <CardActionArea onClick={() => productClickHandler(product.id)}>
-                <CardMedia
-                  className={styles.productImage}
-                  image={product.image}
-                />
-                <CardContent>
-                  <Typography
-                    variant='h6'
-                    color='primary'
-                    className={styles.productName}
-                  >
-                    {product.title}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </div>
+        {products.map((product, index) => (
+          <CardItem
+            key={product.id}
+            label={product.title}
+            imageURL={product.image}
+            clickHandler={() => {}}
+          />
         ))}
       </div>
     </>
