@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../actions/productsActions';
 import { PAGES } from '../reducers/appReducer';
 import NavBar from './NavBar.react';
+import Cart from './Cart.react';
 import CategoriesList from './CategoriesList.react';
 import SearchResults from './SearchResults.react';
 import Product from './Product.react';
@@ -12,9 +13,22 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
   app: {
     fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
+    height: '100vh',
   },
   content: {
     position: 'relative',
+    height: '100%',
+  },
+  cardsAndCart: {
+    display: 'flex',
+    justifyContent: 'center',
+    height: '100%',
+  },
+  cardsContainer: {
+    flex: 3,
+  },
+  cartContainer: {
+    flex: 1,
   },
 });
 
@@ -45,7 +59,12 @@ function App() {
       <NavBar />
       <div className={styles.content}>
         {isSearchModeActive && <SearchResults />}
-        {renderPage()}
+        <div className={styles.cardsAndCart}>
+          <div className={styles.cardsContainer}>{renderPage()}</div>
+          <div className={styles.cartContainer}>
+            <Cart />
+          </div>
+        </div>
       </div>
     </div>
   );

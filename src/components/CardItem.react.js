@@ -11,7 +11,8 @@ import {
 const useStyles = makeStyles({
   cardContainer: {
     padding: 4,
-    width: 270,
+    width: '25%',
+    maxWidth: 270,
     boxSizing: 'border-box',
   },
   image: {
