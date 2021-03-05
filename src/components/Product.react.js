@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   makeStyles,
   Typography,
@@ -10,6 +10,7 @@ import {
   Select,
   MenuItem,
 } from '@material-ui/core';
+import { addToCart } from '../actions/cartActions';
 
 const SIZES = ['S', 'M', 'L', 'XL'];
 
@@ -46,8 +47,11 @@ const useStyles = makeStyles({
 });
 
 export default function Product() {
+  const dispatch = useDispatch();
   const styles = useStyles();
+
   const [selectedSize, setSelectedSize] = useState('M');
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
 
   const { selectedProductID, selectedCategoryName } = useSelector(
     state => state.app
@@ -63,6 +67,19 @@ export default function Product() {
   const { title, description, price, image } = product;
 
   const sizeChangeHandler = event => setSelectedSize(event.target.value);
+  const quantityChangeHandler = event => {
+    setSelectedQuantity(Math.floor(event.target.value));
+  };
+
+  const addToCartHandler = () => {
+    dispatch(
+      addToCart({
+        id: selectedProductID,
+        size: selectedSize,
+        qty: selectedQuantity,
+      })
+    );
+  };
 
   return (
     <div className={styles.centeredFlex}>
@@ -100,12 +117,25 @@ export default function Product() {
               </FormControl>
             )}
             <FormControl className={styles.form}>
-              <InputLabel htmlFor='quantity'>Quantity</InputLabel>
-              <Input id='quantity' type='number' defaultValue={1} />
+              <InputLabel htmlFor='quantity'>Qty</InputLabel>
+              <Input
+                id='quantity'
+                type='number'
+                inputProps={{
+                  min: 1,
+                  step: 1,
+                }}
+                value={selectedQuantity}
+                onChange={event => quantityChangeHandler(event)}
+              />
             </FormControl>
           </div>
           <div className={styles.productDetailRow}>
-            <Button variant='contained' color='primary'>
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={addToCartHandler}
+            >
               Add to Cart
             </Button>
           </div>

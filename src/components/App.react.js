@@ -29,6 +29,7 @@ const useStyles = makeStyles({
   },
   cartContainer: {
     flex: 1,
+    maxWidth: '350px',
   },
 });
 
