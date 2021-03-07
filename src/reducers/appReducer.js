@@ -16,6 +16,7 @@ const initialState = {
   selectedCategoryName: null,
   selectedProductID: null,
   searchTerm: '',
+  isCartTabOpen: false,
 };
 
 export default function appReducer(state = initialState, action) {
