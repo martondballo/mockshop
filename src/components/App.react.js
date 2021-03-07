@@ -13,11 +13,14 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
   app: {
     fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
+    display: 'flex',
+    flexDirection: 'column',
     height: '100vh',
   },
   content: {
     position: 'relative',
     height: '100%',
+    flexGrow: 1,
   },
   cardsAndCart: {
     display: 'flex',
@@ -25,11 +28,10 @@ const useStyles = makeStyles({
     height: '100%',
   },
   cardsContainer: {
-    flex: 3,
+    flex: 1,
   },
   cartContainer: {
-    flex: 1,
-    maxWidth: '350px',
+    width: '350px',
   },
 });
 
@@ -37,7 +39,9 @@ function App() {
   const dispatch = useDispatch();
   const styles = useStyles();
 
-  const { activePage, searchTerm } = useSelector(state => state.app);
+  const { activePage, searchTerm, isCartTabOpen } = useSelector(
+    state => state.app
+  );
   const isSearchModeActive = searchTerm.length > 0;
 
   useEffect(() => dispatch(getProducts()), [dispatch]);
@@ -57,14 +61,18 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <NavBar />
+      <div className={styles.navBar}>
+        <NavBar />
+      </div>
       <div className={styles.content}>
         {isSearchModeActive && <SearchResults />}
         <div className={styles.cardsAndCart}>
           <div className={styles.cardsContainer}>{renderPage()}</div>
-          <div className={styles.cartContainer}>
-            <Cart />
-          </div>
+          {isCartTabOpen && (
+            <div className={styles.cartContainer}>
+              <Cart />
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -10,7 +10,11 @@ import HomeIcon from '@material-ui/icons/Home';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import SearchIcon from '@material-ui/icons/Search';
-import { navigateToHomePage, changeSearchTerm } from './../actions/appActions';
+import {
+  navigateToHomePage,
+  changeSearchTerm,
+  toggleCartTab,
+} from './../actions/appActions';
 
 const useStyles = makeStyles(theme => ({
   homeButton: {
@@ -72,10 +76,13 @@ export default function NavBar() {
   const classes = useStyles();
 
   const { searchTerm } = useSelector(state => state.app);
-  const isCartEmpty = true;
+  const isCartEmpty =
+    Object.keys(useSelector(state => state.cart.itemsInCart)).length === 0;
 
   const handleHomeClick = () => dispatch(navigateToHomePage());
-  const handleCartClick = () => {};
+  const handleCartClick = () => {
+    dispatch(toggleCartTab());
+  };
   const handleChangeSearchTerm = newSearchTerm => {
     dispatch(changeSearchTerm(newSearchTerm));
   };
@@ -88,7 +95,7 @@ export default function NavBar() {
           className={classes.homeButton}
           color='inherit'
           aria-label='home'
-          onClick={() => handleHomeClick()}
+          onClick={handleHomeClick}
         >
           <HomeIcon />
         </IconButton>
@@ -114,7 +121,7 @@ export default function NavBar() {
           className={classes.cartButton}
           color='inherit'
           aria-label='cart'
-          onClick={() => handleCartClick()}
+          onClick={handleCartClick}
         >
           {isCartEmpty ? (
             <ShoppingCartOutlinedIcon size='medium' />

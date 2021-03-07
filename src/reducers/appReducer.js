@@ -3,6 +3,7 @@ import {
   SET_PRODUCT,
   NAVIGATE_TO_HOME_PAGE,
   UPDATE_SEARCH_TERM,
+  TOGGLE_CART_TAB,
 } from '../actions/appActions';
 
 export const PAGES = {
@@ -16,6 +17,7 @@ const initialState = {
   selectedCategoryName: null,
   selectedProductID: null,
   searchTerm: '',
+  isCartTabOpen: false,
 };
 
 export default function appReducer(state = initialState, action) {
@@ -44,7 +46,11 @@ export default function appReducer(state = initialState, action) {
         ...state,
         searchTerm: action.searchTerm,
       };
-
+    case TOGGLE_CART_TAB:
+      return {
+        ...state,
+        isCartTabOpen: !state.isCartTabOpen,
+      };
     default:
       return state;
   }
