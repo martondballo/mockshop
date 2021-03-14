@@ -7,15 +7,21 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import HomeIcon from '@material-ui/icons/Home';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import SearchIcon from '@material-ui/icons/Search';
-import { navigateToHomePage, changeSearchTerm } from './../actions/appActions';
+import {
+  navigateToHomePage,
+  changeSearchTerm,
+  toggleCartTab,
+} from './../actions/appActions';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
+  homeButton: {
     marginRight: theme.spacing(2),
+  },
+  cartButton: {
+    marginLeft: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
@@ -70,45 +76,60 @@ export default function NavBar() {
   const classes = useStyles();
 
   const { searchTerm } = useSelector(state => state.app);
+  const isCartEmpty =
+    Object.keys(useSelector(state => state.cart.itemsInCart)).length === 0;
 
   const handleHomeClick = () => dispatch(navigateToHomePage());
+  const handleCartClick = () => {
+    dispatch(toggleCartTab());
+  };
   const handleChangeSearchTerm = newSearchTerm => {
     dispatch(changeSearchTerm(newSearchTerm));
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position='static'>
-        <Toolbar>
-          <IconButton
-            edge='start'
-            className={classes.menuButton}
-            color='inherit'
-            aria-label='open drawer'
-            onClick={() => handleHomeClick()}
-          >
-            <HomeIcon />
-          </IconButton>
-          <Typography className={classes.title} variant='h6' noWrap>
-            MockShop
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder='Search…'
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              value={searchTerm}
-              onChange={event => handleChangeSearchTerm(event.target.value)}
-              inputProps={{ 'aria-label': 'search' }}
-            />
+    <AppBar position='static'>
+      <Toolbar>
+        <IconButton
+          edge='start'
+          className={classes.homeButton}
+          color='inherit'
+          aria-label='home'
+          onClick={handleHomeClick}
+        >
+          <HomeIcon />
+        </IconButton>
+        <Typography className={classes.title} variant='h6' noWrap>
+          MockShop
+        </Typography>
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
           </div>
-        </Toolbar>
-      </AppBar>
-    </div>
+          <InputBase
+            placeholder='Search…'
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            value={searchTerm}
+            onChange={event => handleChangeSearchTerm(event.target.value)}
+            inputProps={{ 'aria-label': 'search' }}
+          />
+        </div>
+        <IconButton
+          className={classes.cartButton}
+          color='inherit'
+          aria-label='cart'
+          onClick={handleCartClick}
+        >
+          {isCartEmpty ? (
+            <ShoppingCartOutlinedIcon size='medium' />
+          ) : (
+            <ShoppingCartIcon size='medium' />
+          )}
+        </IconButton>
+      </Toolbar>
+    </AppBar>
   );
 }
