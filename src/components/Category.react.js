@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProduct } from '../actions/appActions';
-import { useSelector } from 'react-redux';
 import CardItem from './CardItem.react';
 import { makeStyles, Typography } from '@material-ui/core';
 
@@ -49,7 +48,7 @@ export default function Category() {
             key={product.id}
             label={product.title}
             imageURL={product.image}
-            clickHandler={() => {}}
+            clickHandler={() => productClickHandler(product.id)}
           />
         ))}
       </div>
