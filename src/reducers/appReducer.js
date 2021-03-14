@@ -1,4 +1,9 @@
-import { SET_CATEGORY, SET_PRODUCT } from '../actions/appActions';
+import {
+  SET_CATEGORY,
+  SET_PRODUCT,
+  NAVIGATE_TO_HOME_PAGE,
+  UPDATE_SEARCH_TERM,
+} from '../actions/appActions';
 
 export const PAGES = {
   HOME: 'HOME',
@@ -10,6 +15,7 @@ const initialState = {
   activePage: PAGES.HOME,
   selectedCategoryName: null,
   selectedProductID: null,
+  searchTerm: '',
 };
 
 export default function appReducer(state = initialState, action) {
@@ -26,6 +32,19 @@ export default function appReducer(state = initialState, action) {
         activePage: PAGES.PRODUCT,
         selectedProductID: action.productID,
       };
+    case NAVIGATE_TO_HOME_PAGE:
+      return {
+        ...state,
+        activePage: PAGES.HOME,
+        selectedCategoryName: null,
+        selectedProductID: null,
+      };
+    case UPDATE_SEARCH_TERM:
+      return {
+        ...state,
+        searchTerm: action.searchTerm,
+      };
+
     default:
       return state;
   }
